@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101719">
+  <title>Vision Desk · 파이 카메라</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="/" aria-label="Vision Desk 홈"><span class="brand-icon">◉</span><span>vision<span class="brand-light">desk</span><small>RASPBERRY PI · LOCAL VISION</small></span></a>
+      <span id="serverBadge" class="badge"><i></i>서버 확인 중</span>
+    </header>
+    <main>
+      <div class="intro"><div><span class="eyebrow">당신의 공간을 보고, 듣고, 이해합니다</span><h1>무엇이 보이나요<span>?</span></h1><p>카메라를 보면서 질문해 보세요. 모든 분석은 파이에서 처리됩니다.</p></div><span class="device-label">PI 5 <span>8 GB</span></span></div>
+      <div class="workspace">
+        <section class="panel camera-panel" aria-labelledby="cameraTitle">
+          <div class="panel-head"><h2 id="cameraTitle"><span class="live-dot"></span>라이브 카메라</h2><button id="reconnect" class="text-button" type="button">↻ 다시 연결</button></div>
+          <div class="viewfinder">
+            <img id="camera" alt="파이에 연결된 카메라의 실시간 영상">
+            <div id="cameraPlaceholder" class="camera-placeholder"><span class="focus-icon">⌗</span><strong>카메라에 연결하고 있습니다</strong><p id="cameraMessage">잠시만 기다려 주세요.</p></div>
+            <div class="view-corner top-left"></div><div class="view-corner top-right"></div><div class="view-corner bottom-left"></div><div class="view-corner bottom-right"></div>
+            <div class="video-label"><span id="cameraLabel">연결 중</span><span>640 × 480</span></div>
+          </div>
+          <div class="camera-footer"><span><i class="tiny-dot"></i>실시간 미리보기</span><span>사물 분석은 질문할 때 실행됩니다</span></div>
+        </section>
+        <section class="panel command-panel" aria-labelledby="commandTitle">
+          <div class="panel-head"><h2 id="commandTitle">카메라에 질문하기</h2><span class="step-number">01 — INPUT</span></div>
+          <div class="command-body">
+            <div class="voice-block"><span class="section-label">음성으로 질문</span><button id="listen" class="mic-button" type="button"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0014 0v-2M12 19v3M8 22h8"/></svg><span id="listenLabel">5초 동안 녹음하기</span></button><p class="helper">파이에 연결된 마이크로 말해 주세요.</p></div>
+            <div class="divider"><span>또는 직접 입력</span></div>
+            <form id="commandForm"><label class="section-label" for="command">질문</label><textarea id="command" rows="3" maxlength="500" required placeholder="예: 화면에 사람이 몇 명 있어?"></textarea><div class="examples"><button type="button" data-prompt="화면에 사람이 몇 명 있어?">사람 수 세기 ↗</button><button type="button" data-prompt="지금 보이는 사물을 알려줘">사물 살펴보기 ↗</button><button type="button" data-prompt="컵이 어디 있어?">컵 찾기 ↗</button></div><button id="submit" class="submit-button" type="submit">질문 보내기 <span aria-hidden="true">↗</span></button></form>
+            <div id="progress" class="progress" aria-live="polite"><span id="progressDot" class="progress-dot"></span><span id="progressText">질문을 기다리고 있습니다</span><span id="elapsed"></span></div>
+          </div>
+        </section>
+      </div>
+      <div id="error" class="error" role="alert" hidden></div>
+      <section class="panel result-panel" aria-labelledby="resultTitle">
+        <div class="panel-head"><h2 id="resultTitle">분석 결과</h2><span class="step-number">02 — UNDERSTANDING</span></div>
+        <div id="empty" class="empty-state"><span>↗</span><div><strong>첫 질문을 건네보세요</strong><p>인식한 문장과 사물, 분석한 사진이 여기에 표시됩니다.</p></div></div>
+        <div id="result" class="result-grid" hidden>
+          <div class="result-copy"><span class="section-label">인식한 질문</span><p id="transcript" class="transcript"></p><span class="section-label">카메라의 답변</span><p id="answer" class="answer"></p><div id="intent" class="intent-tags"></div><div id="timings" class="timings"></div></div>
+          <div class="result-vision"><div id="snapshotWrap" hidden><div class="snapshot-caption"><span>분석한 순간의 사진</span><span>실시간 영상과 다를 수 있습니다</span></div><img id="snapshot" alt="검출한 사물의 위치가 표시된 분석 사진"></div><ul id="objects" class="objects" aria-label="조건에 맞는 검출 사물"></ul><p id="noObjects" class="helper" hidden>조건에 맞는 검출 사물이 없습니다.</p></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>VISION DESK <span class="footer-separator">/</span> 내 공간을 이해하는 작은 도구</span><span>영상 · 음성 · 언어 <span class="footer-dot">●</span> 로컬 처리</span></footer>
+  </div>
+</body>
+</html>
